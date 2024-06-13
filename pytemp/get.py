@@ -45,10 +45,6 @@ def fetch_page_data(browser, urls):
     
     return found_ips
 
-
-#keywords = ["购", "推荐", "宣传", "酒店", "视频", "广场舞"]
-
-
 async def process_json_data(sem, session, url):
     async with sem:
         try:
@@ -67,126 +63,126 @@ async def process_json_data(sem, session, url):
                             if ',' in urlx:
                                 urlx = urlx.replace(',', 'aaaaaaaa')
 
-                            if "购" in name or "酒店" in name or "视频" in name or "推荐" in name or "宣传" in name or "广场舞" in name:
+                            #if "购" in name or "酒店" in name or "视频" in name or "推荐" in name or "广场舞" in name:
+                                #continue
+                            
+                            keywords = ["购", "推荐", "宣传", "酒店", "视频", "广场舞"]
+                            if any(keyword in name for keyword in keywords):
+                                #print(f"跳过含有关键词的name: {name}")
                                 continue
-							
-		            
-              		    #if any(keyword in name for keyword in keywords):
-              			#print(f"跳过含有关键词的name: {name}")
-              			#continue
-              							
-              		    #if name.isdigit():
-              			#continue
-              
+                            
+                            if name.isdigit():
+                                continue
+
                             name = name.replace("cctv", "CCTV")
-              		    name = name.replace("中央", "CCTV")
-              		    name = name.replace("央视", "CCTV")
-			    name = name.replace("高清", "")
-              		    name = name.replace("超高", "")
-              		    name = name.replace("测试", "")
-              		    name = name.replace("HD", "")
-              		    name = name.replace("标清", "")
-              		    name = name.replace("频道", "")
-              		    name = name.replace("付费", "")
-              		    name = name.replace("（福建卫视）", "")
-              		    name = name.replace("一台", "1")
-              		    name = name.replace("二台", "2")
-              		    name = name.replace("三台", "3")
-              		    name = name.replace("四台", "4")
-              		    name = name.replace("五台", "5")
-			    name = name.replace("六台", "6")
-			    name = name.replace("七台", "7")
-			    name = name.replace("八台", "8")
-			    name = name.replace("九台", "9")
-			    name = name.replace("十台", "10")
-			    name = name.replace("十一台", "11")
-			    name = name.replace("十二台", "12")
-			    name = name.replace("十三台", "13")
-			    name = name.replace("十四台", "14")
-			    name = name.replace("十五台", "15")
-			    name = name.replace("十六台", "16")
-			    name = name.replace("十七台", "17")
-			    name = name.replace("K1", "")
-			    name = name.replace("K2", "")
-			    name = name.replace("B1", "")
-			    name = name.replace("B2", "")
-			    name = name.replace("-", "")
-			    name = name.replace(" ", "")
-			    name = name.replace("PLUS", "+")
-			    name = name.replace("＋", "+")
-			    name = name.replace("(", "")
-			    name = name.replace(")", "")
-			    name = re.sub(r"CCTV(\d+)台", r"CCTV\1", name)
-			    name = name.replace("CCTV1综合", "CCTV1")
-			    name = name.replace("CCTV2财经", "CCTV2")
-			    name = name.replace("CCTV3综艺", "CCTV3")
-			    name = name.replace("CCTV4国际", "CCTV4")
-			    name = name.replace("CCTV4中文国际", "CCTV4")
-			    name = name.replace("CCTV4欧洲", "CCTV4")
-			    name = name.replace("CCTV5体育", "CCTV5")
-			    name = name.replace("CCTV6电影", "CCTV6")
-			    name = name.replace("CCTV7军事", "CCTV7")
-			    name = name.replace("CCTV7军农", "CCTV7")
-			    name = name.replace("CCTV7农业", "CCTV7")
-			    name = name.replace("CCTV7国防军事", "CCTV7")
-			    name = name.replace("CCTV7国防", "CCTV7")
-			    name = name.replace("CCTV8电视剧", "CCTV8")
-			    name = name.replace("CCTV9记录", "CCTV9")
-			    name = name.replace("CCTV9纪录", "CCTV9")
-			    name = name.replace("CCTV10科教", "CCTV10")
-			    name = name.replace("CCTV11戏曲", "CCTV11")
-			    name = name.replace("CCTV12社会与法", "CCTV12")
-			    name = name.replace("CCTV十2", "CCTV12")
-			    name = name.replace("CCTV12法制", "CCTV12")
-			    name = name.replace("CCTV13新闻", "CCTV13")
-			    name = name.replace("CCTV新闻", "CCTV13")
-			    name = name.replace("CCTV14少儿", "CCTV14")
-			    name = name.replace("CCTV十4", "CCTV14")
-			    name = name.replace("CCTV15音乐", "CCTV15")
-			    name = name.replace("CCTV15+音乐", "CCTV15")
-			    name = name.replace("CCTV音乐", "CCTV15")    
-			    name = name.replace("CCTV17农业农村", "CCTV17")
-			    name = name.replace("CCTV17农业", "CCTV17")
-			    name = name.replace("CCTV5+体育赛视", "CCTV5+")
-			    name = name.replace("CCTV5+体育赛事", "CCTV5+")
-			    name = name.replace("CCTV5+体育", "CCTV5+")
-			
-			    name = name.replace("ZTV8", "浙江少儿")
-			    name = name.replace("文物", "收藏天下")
-			    name = name.replace("湖南金鹰卡通", "金鹰卡通")
-			    name = name.replace("金鹰卡通卫视", "金鹰卡通")
-			
-			    #name = re.sub(r'\b兵器\b', 'CCTV兵器科技', name)
-			    name = re.sub(r'\b怀旧剧场\b', 'CCTV怀旧剧场', name)
-			    name = re.sub(r'\b第一剧场\b', 'CCTV第一剧场', name)
-			    name = re.sub(r'\b世界地理\b', 'CCTV世界地理', name)
-			    name = re.sub(r'\b风云音乐\b', 'CCTV风云音乐', name)
-			    name = re.sub(r'\b风云剧场\b', 'CCTV风云剧场', name)
-			    name = re.sub(r'\bCCTV文化\b', 'CCTV文化精品', name)
-			
-			    name = re.sub(r'\b中国教育4\b', 'CETV4', name)
-			    name = re.sub(r'\b少人\b', '少儿频道', name)
-			    name = re.sub(r'\b茶\b', '茶频道', name)
-			    name = re.sub(r'\b梨园\b', '梨园频道', name)
-			    name = re.sub(r'\b家庭影院\b', 'CHC家庭影院', name)
-			
-			    name = re.sub(r'\b(?:珠江台|珠江卫视)\b', '广东珠江', name)
-			
-			    name = re.sub(r'\b影视\b', '杭州4影视', name)
-			    name = re.sub(r'\b生活\b', '杭州3生活', name)
-			    name = re.sub(r'\b综合\b', '杭州1综合', name)
-			
-			
-			    name = re.sub(r'\b(?:兵器|兵器科技|CCTV兵器)\b', 'CCTV兵器科技', name)
-			    name = re.sub(r'\b(?:台球|央视台球|CCTV台球)\b', 'CCTV央视台球', name)
-			    name = re.sub(r'\b(?:足球|风云足球|CCTV足球)\b', 'CCTV风云足球', name)
-			    name = re.sub(r'\b(?:教育一套|中国教育|中国教育1)\b', 'CETV1', name)
-			    name = re.sub(r'\b(?:电影|CHC电影)\b', 'CHC影迷电影', name)
-			
-			    name = re.sub(r'\b(?:南方卫视|广东南方卫视)\b', '大湾区卫视', name)
-			    name = re.sub(r'\b(?:北京纪实|BTV冬奥纪实|BTV纪实科教)\b', '纪实科教', name)
-			
-			    name = re.sub(r'\b(?:CCTV16奥林匹克|CCTV16奥运匹克|CCTV16奥林|CCTV16外语|CCTV16奥运|CCTV16匹克)\b', 'CCTV16', name)
+                            name = name.replace("中央", "CCTV")
+                            name = name.replace("央视", "CCTV")
+                            name = name.replace("高清", "")
+                            name = name.replace("超高", "")
+                            name = name.replace("测试", "")
+                            name = name.replace("HD", "")
+                            name = name.replace("标清", "")
+                            name = name.replace("频道", "")
+                            name = name.replace("付费", "")
+                            name = name.replace("（福建卫视）", "")
+                            name = name.replace("一台", "1")
+                            name = name.replace("二台", "2")
+                            name = name.replace("三台", "3")
+                            name = name.replace("四台", "4")
+                            name = name.replace("五台", "5")
+                            name = name.replace("六台", "6")
+                            name = name.replace("七台", "7")
+                            name = name.replace("八台", "8")
+                            name = name.replace("九台", "9")
+                            name = name.replace("十台", "10")
+                            name = name.replace("十一台", "11")
+                            name = name.replace("十二台", "12")
+                            name = name.replace("十三台", "13")
+                            name = name.replace("十四台", "14")
+                            name = name.replace("十五台", "15")
+                            name = name.replace("十六台", "16")
+                            name = name.replace("十七台", "17")
+                            name = name.replace("K1", "")
+                            name = name.replace("K2", "")
+                            name = name.replace("B1", "")
+                            name = name.replace("B2", "")
+                            name = name.replace("-", "")
+                            name = name.replace(" ", "")
+                            name = name.replace("PLUS", "+")
+                            name = name.replace("＋", "+")
+                            name = name.replace("(", "")
+                            name = name.replace(")", "")
+                            name = re.sub(r"CCTV(\d+)台", r"CCTV\1", name)
+                            name = name.replace("CCTV1综合", "CCTV1")
+                            name = name.replace("CCTV2财经", "CCTV2")
+                            name = name.replace("CCTV3综艺", "CCTV3")
+                            name = name.replace("CCTV4国际", "CCTV4")
+                            name = name.replace("CCTV4中文国际", "CCTV4")
+                            name = name.replace("CCTV4欧洲", "CCTV4")
+                            name = name.replace("CCTV5体育", "CCTV5")
+                            name = name.replace("CCTV6电影", "CCTV6")
+                            name = name.replace("CCTV7军事", "CCTV7")
+                            name = name.replace("CCTV7军农", "CCTV7")
+                            name = name.replace("CCTV7农业", "CCTV7")
+                            name = name.replace("CCTV7国防军事", "CCTV7")
+                            name = name.replace("CCTV7国防", "CCTV7")
+                            name = name.replace("CCTV8电视剧", "CCTV8")
+                            name = name.replace("CCTV9记录", "CCTV9")
+                            name = name.replace("CCTV9纪录", "CCTV9")
+                            name = name.replace("CCTV10科教", "CCTV10")
+                            name = name.replace("CCTV11戏曲", "CCTV11")
+                            name = name.replace("CCTV12社会与法", "CCTV12")
+                            name = name.replace("CCTV十2", "CCTV12")
+                            name = name.replace("CCTV12法制", "CCTV12")
+                            name = name.replace("CCTV13新闻", "CCTV13")
+                            name = name.replace("CCTV新闻", "CCTV13")
+                            name = name.replace("CCTV14少儿", "CCTV14")
+                            name = name.replace("CCTV十4", "CCTV14")
+                            name = name.replace("CCTV15音乐", "CCTV15")
+                            name = name.replace("CCTV15+音乐", "CCTV15")
+                            name = name.replace("CCTV音乐", "CCTV15")    
+                            name = name.replace("CCTV17农业农村", "CCTV17")
+                            name = name.replace("CCTV17农业", "CCTV17")
+                            name = name.replace("CCTV5+体育赛视", "CCTV5+")
+                            name = name.replace("CCTV5+体育赛事", "CCTV5+")
+                            name = name.replace("CCTV5+体育", "CCTV5+")
+                            
+                            name = name.replace("ZTV8", "浙江少儿")
+                            name = name.replace("文物", "收藏天下")
+                            name = name.replace("湖南金鹰卡通", "金鹰卡通")
+                            name = name.replace("金鹰卡通卫视", "金鹰卡通")
+                            
+                            #name = re.sub(r'\b兵器\b', 'CCTV兵器科技', name)
+                            name = re.sub(r'\b怀旧剧场\b', 'CCTV怀旧剧场', name)
+                            name = re.sub(r'\b第一剧场\b', 'CCTV第一剧场', name)
+                            name = re.sub(r'\b世界地理\b', 'CCTV世界地理', name)
+                            name = re.sub(r'\b风云音乐\b', 'CCTV风云音乐', name)
+                            name = re.sub(r'\b风云剧场\b', 'CCTV风云剧场', name)
+                            name = re.sub(r'\bCCTV文化\b', 'CCTV文化精品', name)
+                            
+                            name = re.sub(r'\b中国教育4\b', 'CETV4', name)
+                            name = re.sub(r'\b少人\b', '少儿频道', name)
+                            name = re.sub(r'\b茶\b', '茶频道', name)
+                            name = re.sub(r'\b梨园\b', '梨园频道', name)
+                            name = re.sub(r'\b家庭影院\b', 'CHC家庭影院', name)
+                            
+                            name = re.sub(r'\b(?:珠江台|珠江卫视)\b', '广东珠江', name)
+                            
+                            name = re.sub(r'\b影视\b', '杭州4影视', name)
+                            name = re.sub(r'\b生活\b', '杭州3生活', name)
+                            name = re.sub(r'\b综合\b', '杭州1综合', name)
+                            
+                            
+                            name = re.sub(r'\b(?:兵器|兵器科技|CCTV兵器)\b', 'CCTV兵器科技', name)
+                            name = re.sub(r'\b(?:台球|央视台球|CCTV台球)\b', 'CCTV央视台球', name)
+                            name = re.sub(r'\b(?:足球|风云足球|CCTV足球)\b', 'CCTV风云足球', name)
+                            name = re.sub(r'\b(?:教育一套|中国教育|中国教育1)\b', 'CETV1', name)
+                            name = re.sub(r'\b(?:电影|CHC电影)\b', 'CHC影迷电影', name)
+                            
+                            name = re.sub(r'\b(?:南方卫视|广东南方卫视)\b', '大湾区卫视', name)
+                            name = re.sub(r'\b(?:北京纪实|BTV冬奥纪实|BTV纪实科教)\b', '纪实科教', name)
+                            
+                            name = re.sub(r'\b(?:CCTV16奥林匹克|CCTV16奥运匹克|CCTV16奥林|CCTV16外语|CCTV16奥运|CCTV16匹克)\b', 'CCTV16', name)
 
                             # 添加
                             if name in ["广西", "湖南", "东方", "北京", "浙江", "江苏", "深圳", "天津", "山东", "湖北", "上海", "东南", "吉林", "四川", "安徽", "广东", "辽宁", "重庆", "黑龙江", "东方", "云南", "广西", "河北", "海南", "甘肃", "贵州", "陕西", "青海"]:
@@ -205,35 +201,11 @@ async def process_json_data(sem, session, url):
 
 async def main():
     urls = [   
-    "https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0iSGViZWki",  # Hebei (河北)
-	"https://fofa.info/result?qbase64=ImlzU2hvd0xvZ2luSnMiICYmIHJlZ2lvbj0iR3VpemhvdSI%3D",  # Guizhou (贵州)
-	"https://fofa.info/result?qbase64=ImlzU2hvd0xvZ2luSnMiICYmIHJlZ2lvbj0iR2Fuc3Ui",  # Ganshu (甘肃)
-	"https://fofa.info/result?qbase64=ImlzU2hvd0xvZ2luSnMiICYmIHJlZ2lvbj0iSGVpbG9uZ2ppYW5nIg%3D%3D",  # Heilongjiang (黑龙江)
-	"https://fofa.info/result?qbase64=ImlzU2hvd0xvZ2luSnMiICYmIHJlZ2lvbj0iSmlhbmd4aSI%3D",  # Jiangxi (江西)
-	"https://fofa.info/result?qbase64=ImlzU2hvd0xvZ2luSnMiICYmIHJlZ2lvbj0iWXVubmFuIg%3D%3D",  # Yunnan (云南)
-	"https://fofa.info/result?qbase64=ImlzU2hvd0xvZ2luSnMiICYmIHJlZ2lvbj0iR3Vhbmd4aSBaaHVhbmd6dSI%3D",  # Guangxi (广西)
-	"https://fofa.info/result?qbase64=ImlzU2hvd0xvZ2luSnMiICYmIHJlZ2lvbj0iSmlsaW4i",  # Jilin (吉林)
-	"https://fofa.info/result?qbase64=ImlzU2hvd0xvZ2luSnMiICYmIHJlZ2lvbj0iU2ljaHVhbiI%3D",  # Sichuan (四川)
-	"https://fofa.info/result?qbase64=ImlzU2hvd0xvZ2luSnMiICYmIHJlZ2lvbj0iTmVpIE1vbmdvbCI%3D",  # Neimenggu (内蒙古)
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0iYmVpamluZyI%3D",  # Beijing (北京)
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0iZ3Vhbmdkb25nIg%3D%3D",  # Guangdong (广东)
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0ic2hhbmdoYWki",  # Shanghai (上海)
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0iY2hvbmdxaW5nIg%3D%3D",  # Chongqing (重庆)
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0ic2hhbnhpIg%3D%3D",  # Shanxi (山西)
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0iU2hhYW54aSI%3D",  # Shaanxi (陕西)
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0ibGlhb25pbmci",  # Liaoning (辽宁)
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0iamlhbmdzdSI%3D",  # Jiangsu (江苏)
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0iemhlamlhbmci",  # Zhejiang (浙江)
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0i5a6J5b69Ig%3D%3D",  # Anhui (安徽)
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0iRnVqaWFuIg%3D%3D",  # 福建
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0i5rGf6KW%2FIg%3D%3D",  # 江西
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0i5bGx5LicIg%3D%3D",  # 山东
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0i5rKz5Y2XIg%3D%3D",  # 河南
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0i5rmW5YyXIg%3D%3D",  # 湖北
-	"https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0i5rmW5Y2XIg%3D%3D",  # 湖南
+        "https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICYmIHJlZ2lvbj0iSGViZWki",  # Hebei (河北)
+
        
         
-    ]
+    ]  # 替换成您想访问的URLs
 
     browser = setup_browser()
     unique_ips = fetch_page_data(browser, urls)
@@ -243,35 +215,35 @@ async def main():
     
     processed_data = []
 
-    sem = asyncio.Semaphore(50)
+    sem = asyncio.Semaphore(50)  # 限制并发数量为50
     async with aiohttp.ClientSession() as session:
         tasks = [process_json_data(sem, session, url) for url in processed_urls]
         results = await asyncio.gather(*tasks, return_exceptions=True)
         
         for result, url in zip(results, processed_urls):
-            if result is None:
+            if result is None:      # 如果无法解析JSON数据，则跳过该请求的处理
                 continue
 
-            X = re.search(r'http://(.*?)/', url).group(1)
+            X = re.search(r'http://(.*?)/', url).group(1)  # 使用正则表达式提取IP地址部分
             for name, urlx in result:
                 if 'http' in urlx:
-                    processed_data.append((name, urlx))
+                    processed_data.append((name, urlx))  # 将数据添加到列表中
                 else:
-                    processed_data.append((name, f'http://{X}{urlx}'))
+                    processed_data.append((name, f'http://{X}{urlx}'))  # 如果不包含http，则添加完整IP地址
         
-
+    # 打印生成的数据，根据是否包含http选择不同的格式
     for name, urlx in processed_data:
         #print(f"{name},{urlx}")
         pass
 
-
-    #script_dir = os.path.dirname(os.path.abspath(__file__))
-    #output_file_path = os.path.join(script_dir, 'itv.txt')
-	
-    output_file_path = f"resul/datas"
+    # 将处理后的数据写入文件
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    output_file_path = os.path.join(script_dir, 'itv.txt')
+    
+    #output_file_path = f"jiee/itv.txt"
     with open(output_file_path, 'w', encoding='utf-8') as file:
         for name, urlx in processed_data:
-            file.write(f"{name},{urlx}\n")
+            file.write(f"{name},{urlx}\n")  # 写入不同格式的数据到文件
 
     #print("数据已打印和写入文件。")
 
