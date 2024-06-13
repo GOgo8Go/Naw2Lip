@@ -46,7 +46,7 @@ def fetch_page_data(browser, urls):
     return found_ips
 
 
-keywords = ["购", "推荐", "宣传", "酒店", "视频", "广场舞"]
+#keywords = ["购", "推荐", "宣传", "酒店", "视频", "广场舞"]
 
 
 async def process_json_data(sem, session, url):
@@ -67,13 +67,13 @@ async def process_json_data(sem, session, url):
                             if ',' in urlx:
                                 urlx = urlx.replace(',', 'aaaaaaaa')
 
-                            #if "购" in name or "酒店" in name or "视频" in name or "推荐" in name:
-                                #continue
+                            if "购" in name or "酒店" in name or "视频" in name or "推荐" in name or "宣传" in name or "广场舞" in name:
+                                continue
 							
 		            
-              		    if any(keyword in name for keyword in keywords):
+              		    #if any(keyword in name for keyword in keywords):
               			#print(f"跳过含有关键词的name: {name}")
-              			continue
+              			#continue
               							
               		    if name.isdigit():
               			continue
