@@ -21,7 +21,12 @@ jobs:
           python-version: 3.x
 
       - name: Install dependencies
-        run: pip install selenium requests futures eventlet
+        run: |
+          sudo apt-get update
+          python -m pip install aiohttp
+          #pip install selenium requests futures opencv-python eventlet
+          pip install selenium requests futures eventlet
+          sudo apt-get install ffmpeg
 
 
       - name: Run itv
