@@ -34,7 +34,7 @@ def fetch_page_data(browser, urls):
             if ips:
                 print(f"Found IPs for {url}:")
                 for ip in ips:
-                    #print(ip)
+                    print(ip)
                     found_ips.add(ip)
             else:
                 #print(f"No IPs found for {url}.")
