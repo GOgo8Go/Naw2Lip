@@ -30,7 +30,7 @@ jobs:
 
 
       - name: Run get
-        run: python ${{ github.workspace }}/pytemp/get.py
+        run: python ${{ github.workspace }}/pytemp/get
 
       - name: Run hd
         run: python ${{ github.workspace }}/pytemp/testhd
