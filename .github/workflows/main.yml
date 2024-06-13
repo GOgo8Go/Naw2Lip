@@ -29,10 +29,10 @@ jobs:
           sudo apt-get install ffmpeg
 
 
-      - name: Run itv
+      - name: Run get
         run: python ${{ github.workspace }}/pytemp/get.py
 
-      - name: Run itvtest
+      - name: Run hd
         run: python ${{ github.workspace }}/pytemp/testhd
         
 
