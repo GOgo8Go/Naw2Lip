@@ -7,10 +7,9 @@ from aiohttp import ClientSession
 from asyncio import Semaphore
 
 
-
-def read_and_filter_file(file_path):
+def read_and_filter_file():
     filtered_data = []
-    with open(file_path, 'r', encoding='utf8') as file:
+    with open("resul/hd", 'r', encoding='utf8') as file:
         for line in file:
             line = line.strip()
             if not line or '#' in line or ',' not in line:
@@ -23,12 +22,13 @@ def read_and_filter_file(file_path):
 async def check_url(name, url, session, semaphore):
     async with semaphore:
         try:
-            async with session.get(url, timeout=2) as response:
+            async with session.get(url, timeout=1) as response:
                 if response.status == 200:
                     return name, url
         except Exception as e:
             pass
         return None
+
 
 async def check_urls(url_list, concurrency=50):
     semaphore = Semaphore(concurrency)
@@ -36,6 +36,7 @@ async def check_urls(url_list, concurrency=50):
         tasks = [check_url(name, url, session, semaphore) for name, url in url_list]
         valid_urls = await asyncio.gather(*tasks)
     return [url for url in valid_urls if url is not None]
+
 
 
 def get_resolution(name, url, timeout=15):
@@ -58,6 +59,7 @@ def get_resolution(name, url, timeout=15):
             process.wait()
     return None
 
+
 async def check_resolutions(valid_urls, concurrency=30):
     loop = asyncio.get_event_loop()
     semaphore = Semaphore(concurrency)
@@ -71,34 +73,30 @@ async def check_resolutions(valid_urls, concurrency=30):
     return [url for url in high_res_urls if url is not None]
 
 
-def save_valid_data(file_path, valid_data):
 
-    valid_data_sorted = sorted(valid_data, key=lambda x: x[0])  # 按 name 排序
-    lines = [f"{name},{url}" for name, url in valid_data_sorted]
-    
-    
-    # Join lines with newline characters and write to file
-    with open(file_path, 'w', encoding='utf8') as file:
+def save_valid_data(valid_data):
+    # valid_data_sorted = sorted(valid_data, key=lambda x: x[0])  # 按 name 排序
+    # lines = [f"{name},{url}" for name, url in valid_data_sorted]
+
+    lines = [f"{name},{url}" for name, url in valid_data]  # 不排序
+
+    with open("resul/hd", 'w', encoding='utf8') as file:
         file.write("\n".join(lines))
+
 
 
 async def main():
 
-    input_file = f"resul/datas"
-    output_file = f"resul/datas"
-
-    filtered_data = read_and_filter_file(input_file)
+    filtered_data = read_and_filter_file()
 
     valid_urls = await check_urls(filtered_data)
 
     high_res_urls = await check_resolutions(valid_urls)
-
-    save_valid_data(output_file, high_res_urls)
     
+    save_valid_data(high_res_urls)
 
 if __name__ == '__main__':
     asyncio.run(main())
 
 
-        
-print(f"有效数据已写入")
+print("已检测完毕)
