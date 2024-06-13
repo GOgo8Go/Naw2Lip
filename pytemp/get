@@ -75,8 +75,8 @@ async def process_json_data(sem, session, url):
               			#print(f"跳过含有关键词的name: {name}")
               			#continue
               							
-              		    if name.isdigit():
-              			continue
+              		    #if name.isdigit():
+              			#continue
               
                             name = name.replace("cctv", "CCTV")
               		    name = name.replace("中央", "CCTV")
