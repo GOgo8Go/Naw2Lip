@@ -25,7 +25,7 @@ jobs:
 
 
       - name: Run itv
-        run: python ${{ github.workspace }}/pytemp/get
+        run: python ${{ github.workspace }}/pytemp/get.py
 
       - name: Run itvtest
         run: python ${{ github.workspace }}/pytemp/testhd
