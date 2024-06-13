@@ -1,0 +1,45 @@
+name: hdweek
+
+on:
+  schedule:
+    - cron: '0 13 * * 6'
+    
+  workflow_dispatch:
+
+
+jobs:
+  hdweek:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+    
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          python -m pip install aiohttp
+          #pip install selenium requests futures opencv-python eventlet
+          pip install selenium requests futures eventlet
+          sudo apt-get install ffmpeg
+
+
+      - name: Run get
+        run: python ${{ github.workspace }}/pytemp/hdweek
+
+        
+
+      - name: 提交更改
+        run: |
+          git config --local user.email "6fybq3a5@nqmo.com"
+          git config --local user.name "o1il"
+          git add .
+          git commit -m "Add generated files"
+          #git pull --rebase
+          git push -f
+ 
