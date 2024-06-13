@@ -1,41 +1,44 @@
-import os
-import re
-import time
-import asyncio
 import aiohttp
-import concurrent.futures
+import asyncio
 import subprocess
 import json
-import requests
-import threading
-from queue import Queue
-import random
-from collections import defaultdict
+import os
+from aiohttp import ClientSession
+from asyncio import Semaphore
 
 
 
-task_queue = Queue()
-
-
-results = []
-channels = []
-error_channels = []
-
-
-speed_file_path = f"resul/datas"  
-with open(speed_file_path, 'r', encoding='utf-8') as file:
-    for line in file:
-        line = line.strip()
-        if line and ',' in line:
-            try:
-                channel_name, channel_url = line.split(',')
-                channels.append((channel_name.strip(), channel_url.strip()))
-            except ValueError:
+def read_and_filter_file(file_path):
+    filtered_data = []
+    with open(file_path, 'r', encoding='utf8') as file:
+        for line in file:
+            line = line.strip()
+            if not line or '#' in line or ',' not in line:
                 continue
+            name, url = line.split(',', 1)
+            filtered_data.append((name, url))
+    return filtered_data
 
 
+async def check_url(name, url, session, semaphore):
+    async with semaphore:
+        try:
+            async with session.get(url, timeout=2) as response:
+                if response.status == 200:
+                    return name, url
+        except Exception as e:
+            pass
+        return None
 
-def get_resolution(name, url, timeout=10):
+async def check_urls(url_list, concurrency=50):
+    semaphore = Semaphore(concurrency)
+    async with ClientSession() as session:
+        tasks = [check_url(name, url, session, semaphore) for name, url in url_list]
+        valid_urls = await asyncio.gather(*tasks)
+    return [url for url in valid_urls if url is not None]
+
+
+def get_resolution(name, url, timeout=15):
     process = None
     try:
         cmd = ['ffprobe', '-print_format', 'json', '-show_streams', '-select_streams', 'v', url]
@@ -55,41 +58,46 @@ def get_resolution(name, url, timeout=10):
             process.wait()
     return None
 
+async def check_resolutions(valid_urls, concurrency=30):
+    loop = asyncio.get_event_loop()
+    semaphore = Semaphore(concurrency)
+    
+    async def wrapper(name, url):
+        async with semaphore:
+            return await loop.run_in_executor(None, get_resolution, name, url)
+    
+    tasks = [wrapper(name, url) for name, url in valid_urls]
+    high_res_urls = await asyncio.gather(*tasks)
+    return [url for url in high_res_urls if url is not None]
 
 
-def worker():
-    while True:
-        channel_name, channel_url = task_queue.get()
-        try:
-            resolution_info = get_resolution(channel_name, channel_url, timeout=15)
-            if resolution_info:
-                results.append(resolution_info)
-        except Exception as e:
-            error_channels.append((channel_name, channel_url))
-        task_queue.task_done()
+def save_valid_data(file_path, valid_data):
+
+    valid_data_sorted = sorted(valid_data, key=lambda x: x[0])  # 按 name 排序
+    lines = [f"{name},{url}" for name, url in valid_data_sorted]
+    
+    
+    # Join lines with newline characters and write to file
+    with open(file_path, 'a', encoding='utf8') as file:
+        file.write("\n".join(lines))
 
 
+async def main():
 
+    input_file = f"resul/datas"
+    output_file = f"resul/hd"
 
+    filtered_data = read_and_filter_file(input_file)
 
-num_threads = 25
-for _ in range(num_threads):
-    t = threading.Thread(target=worker, daemon=True)
-    t.start()
+    valid_urls = await check_urls(filtered_data)
 
+    high_res_urls = await check_resolutions(valid_urls)
 
-for channel in channels:
-    task_queue.put(channel)
+    save_valid_data(output_file, high_res_urls)
+    
 
-
-task_queue.join()
-
-
-out1_file_path = f"resul/hd"
-with open(out1_file_path, 'w', encoding='utf-8') as file:
-    for name, url in results:
-        file.write(f"{name},{url}\n")
-
+if __name__ == '__main__':
+    asyncio.run(main())
 
 
 
