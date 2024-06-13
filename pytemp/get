@@ -45,6 +45,10 @@ def fetch_page_data(browser, urls):
     
     return found_ips
 
+
+keywords = ["购", "推荐", "宣传", "酒店", "视频", "广场舞"]
+
+
 async def process_json_data(sem, session, url):
     async with sem:
         try:
@@ -66,7 +70,7 @@ async def process_json_data(sem, session, url):
                             #if "购" in name or "酒店" in name or "视频" in name or "推荐" in name:
                                 #continue
 							
-		            keywords = ["购", "推荐", "宣传", "酒店", "视频", "广场舞"]
+		            
               		    if any(keyword in name for keyword in keywords):
               			#print(f"跳过含有关键词的name: {name}")
               			continue
