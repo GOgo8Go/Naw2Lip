@@ -2,7 +2,7 @@ name: get
 
 on:
   schedule:
-    - cron: '25 8 * * *'
+    - cron: '25 10 * * *'
     
   workflow_dispatch:
 
@@ -32,6 +32,9 @@ jobs:
       - name: Run get
         run: python ${{ github.workspace }}/pytemp/get
 
+      - name: Run compa
+        run: python ${{ github.workspace }}/pytemp/compare
+        
       - name: Run hd
         run: python ${{ github.workspace }}/pytemp/testhd
         
