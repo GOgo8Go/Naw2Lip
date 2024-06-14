@@ -14,5 +14,5 @@ with open("resul/datas", 'w', encoding='utf-8') as file:
     file.writelines(diff_data)
 
 
-with open("resul/datas", 'w', encoding='utf-8') as file:
+with open("resul/olds", 'w', encoding='utf-8') as file:
     file.writelines(new_data)
