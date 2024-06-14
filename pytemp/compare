@@ -1,0 +1,18 @@
+import os
+
+with open("resul/news", 'r', encoding='utf-8') as file:
+    new_data = set(file.readlines())
+
+with open("resul/olds", 'r', encoding='utf-8') as file:
+    old_data = set(file.readlines())
+
+
+diff_data = new_data - old_data
+
+
+with open("resul/datas", 'w', encoding='utf-8') as file:
+    file.writelines(diff_data)
+
+
+with open("resul/datas", 'w', encoding='utf-8') as file:
+    file.writelines(new_data)
