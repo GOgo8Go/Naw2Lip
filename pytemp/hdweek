@@ -99,4 +99,4 @@ if __name__ == '__main__':
     asyncio.run(main())
 
 
-print("已检测完毕)
+print("已检测完毕")
