@@ -444,3 +444,15 @@ CCTV9,http://39.172.91.235:2082/tsfile/live/0009_1.m3u8?key=txiptv&playlive=0&au
 贵州卫视,http://39.172.91.235:2082/tsfile/live/0120_1.m3u8?key=txiptv&playlive=0&authid=0
 重庆卫视,http://39.172.91.235:2082/tsfile/live/0142_1.m3u8?key=txiptv&playlive=0&authid=0
 青海卫视,http://39.172.91.235:2082/tsfile/live/0140_1.m3u8?key=txiptv&playlive=1&authid=0
+CCTV1,http://120.224.178.16:9901/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0
+CCTV11,http://120.224.178.16:9901/tsfile/live/0011_1.m3u8?key=txiptv&playlive=1&authid=0
+CCTV12,http://120.224.178.16:9901/tsfile/live/0012_1.m3u8?key=txiptv&playlive=1&authid=0
+CCTV14,http://120.224.178.16:9901/tsfile/live/0014_1.m3u8?key=txiptv&playlive=1&authid=0
+CCTV2,http://120.224.178.16:9901/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0
+东南卫视,http://120.224.178.16:9901/tsfile/live/0143_1.m3u8?key=txiptv&playlive=1&authid=0
+天津卫视,http://120.224.178.16:9901/tsfile/live/0114_1.m3u8?key=txiptv&playlive=1&authid=0
+山东体育,http://120.224.178.16:9901/tsfile/live/0111_1.m3u8?key=txiptv&playlive=1&authid=0
+江苏卫视,http://120.224.178.16:9901/tsfile/live/0107_1.m3u8?key=txiptv&playlive=1&authid=0
+河南卫视,http://120.224.178.16:9901/tsfile/live/1001_1.m3u8?key=txiptv&playlive=1&authid=0
+湖北卫视,http://120.224.178.16:9901/tsfile/live/1004_1.m3u8?key=txiptv&playlive=1&authid=0
+黑龙江卫视,http://120.224.178.16:9901/tsfile/live/0125_1.m3u8?key=txiptv&playlive=1&authid=0
