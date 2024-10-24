@@ -186,3 +186,6 @@ CCTV8,http://113.15.186.250:8181/tsfile/live/faacts/0008_1.m3u8?key=txiptv&playl
 CCTV8,http://113.15.184.8:8181/tsfile/live/faacts/0008_1.m3u8?key=txiptv&playlive=1&authid=0
 CCTV9,http://113.15.184.8:8181/tsfile/live/faacts/0009_1.m3u8?key=txiptv&playlive=1&authid=0
 安阳科教,http://115.48.62.124:9901/tsfile/live/1017_1.m3u8?key=txiptv&playlive=1&authid=0
+CCTV12,http://120.197.43.179:9901/tsfile/live/0013_1.m3u8?key=txiptv&playlive=1&authid=0
+CCTV5+,http://120.197.43.179:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0
+CCTV6,http://121.33.239.242:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0
