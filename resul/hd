@@ -18,3 +18,4 @@ CCTV3,http://120.197.43.179:9901/tsfile/live/0003_1.m3u8?key=txiptv&playlive=1&a
 CCTV5,http://120.197.43.179:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0
 CCTV5+,http://120.197.43.179:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0CCTV12,http://120.197.43.179:9901/tsfile/live/0013_1.m3u8?key=txiptv&playlive=1&authid=0
 CCTV14,http://121.33.239.242:9901/tsfile/live/0014_1.m3u8?key=txiptv&playlive=1&authid=0
+CCTV5+,http://120.197.43.179:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0
